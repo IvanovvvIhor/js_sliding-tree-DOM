@@ -5,8 +5,12 @@ const tree = document.querySelector('.tree');
 const items = document.querySelectorAll('li');
 
 items.forEach((element) => {
-  const span = document.createElement('SPAN');
+  const span = document.createElement('span');
   const text = element.firstChild;
+
+  if (text.nodeType !== Node.TEXT_NODE) {
+    return;
+  }
 
   element.insertBefore(span, text);
 
