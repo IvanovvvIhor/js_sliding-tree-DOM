@@ -5,16 +5,14 @@ const tree = document.querySelector('.tree');
 const items = document.querySelectorAll('li');
 
 items.forEach((element) => {
-  const span = document.createElement('span');
   const text = element.firstChild;
 
-  if (text.nodeType !== Node.TEXT_NODE) {
-    return;
+  if (text.nodeType === Node.TEXT_NODE) {
+    const span = document.createElement('span');
+
+    element.insertBefore(span, text);
+    span.appendChild(text);
   }
-
-  element.insertBefore(span, text);
-
-  span.appendChild(text);
 });
 
 tree.addEventListener('click', (e) => {
@@ -23,7 +21,7 @@ tree.addEventListener('click', (e) => {
   }
 
   const parentLi = e.target.closest('li');
-  const nextLi = parentLi.querySelector('ul');
+  const nextLi = parentLi.querySelector(':scope > ul');
 
   if (!nextLi) {
     return;
